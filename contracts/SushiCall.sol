@@ -1,9 +1,8 @@
 /// SPDX-License-Identifier: Apache-2.0
-/// @title SushiCall
-/// @author SushiSwap contirbutors
-/// @notice SuhiCall is designed for RPC requests for DApp interface usage
 pragma solidity 0.8.7;
 pragma abicoder v2;
+
+//░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░//
 
 // @function getBytes  //
 function getBytes(
@@ -38,6 +37,8 @@ function getBytes(
     }
 }
 
+//░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░//
+
 contract SushiCall {
     struct Call {
         address target;
@@ -50,6 +51,8 @@ contract SushiCall {
         uint256 gasUsed;
         bytes returnData;
     }
+
+    //░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░//
 
     // @function getCurrentBlockTimestamp  //
     function getCurrentBlockTimestamp()
@@ -88,7 +91,9 @@ contract SushiCall {
         }
     }
 
-    function gaslimit() external view returns (uint256) {
+    //░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░//
+
+    function gasLimit() external view returns (uint256) {
         return block.gaslimit;
     }
 
@@ -96,7 +101,7 @@ contract SushiCall {
         return gasleft();
     }
 
-    function gasbase() public view returns (uint256 ret) {
+    function gasBase() public view returns (uint256 ret) {
         assembly {
             ret := basefee()
         }

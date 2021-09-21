@@ -1,24 +1,23 @@
-console.log('Try npm run lint/fix!');
+  
+import { Provider } from '@ethersproject/providers';
 
-const longString =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut aliquet diam.';
-
-const trailing = 'Semicolon';
-
-const why = 'am I tabbed?';
-
-export function doSomeStuff(
-  withThis: string,
-  andThat: string,
-  andThose: string[],
-) {
-  //function on one line
-  if (!andThose.length) {
-    return false;
-  }
-  console.log(withThis);
-  console.log(andThat);
-  console.dir(andThose);
-  return;
+interface SushiCallOptionsBase {
+  sushicallContractAddress?: string;
+  tryAggregate?: boolean;
+  sushicallChainId: number;
 }
-// TODO: more examples
+
+export interface SushiCallOptionsWeb3 extends SushiCallOptionsBase {
+  // so we can support any version of web3 typings
+  // tslint:disable-next-line: no-any
+  web3Instance: any;
+}
+
+export interface SushiCallOptionsEthers extends SushiCallOptionsBase {
+  ethersProvider: Provider;
+}
+
+export interface SushiCallOptionsCustomJsonRpcProvider
+  extends SushiCallOptionsBase {
+  nodeUrl: string;
+}

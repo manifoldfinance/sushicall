@@ -1,13 +1,14 @@
 {
-  "name": "solidity-hardhat-template",
-  "private": true,
-  "version": "0.0.0",
-  "description": "typescript hardhat base with conformant linting",
+  "name": "sushicall2",
+  "private": false,
+  "version": "1.0.0",
+  "description": "Batch RPC Solidity Interface for SushiSwap Frontend",
   "files": [
     "/contracts/**/*.sol",
     "/build/contracts/*.json",
     "!/contracts/mocks/**/*"
   ],
+  "main": "index.js",
   "scripts": {
     "build": "npx tsc -b",
     "compile": "npx hardhat compile",
@@ -33,10 +34,6 @@
   ],
   "author": "SEE CONTRIBUTORS",
   "license": "SEE LICENSE IN LICENSE",
-  "bugs": {
-    "url": "https://github.com/sambacha/solidity-hardhat-template/issues"
-  },
-  "homepage": "https://github.com/sambacha/solidity-hardhat-template#readme",
   "devDependencies": {
     "@ethersproject/bytes": "^5.4.0",
     "@ethersproject/abi": "^5.4.1",
