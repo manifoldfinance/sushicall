@@ -2,6 +2,8 @@
 pragma solidity 0.8.7;
 pragma abicoder v2;
 
+/// @title SushiCall
+
 //░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░//
 
 // @function getBytes  //
@@ -37,7 +39,7 @@ function getBytes(
     }
 }
 
-//░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░//
+//░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░//
 
 contract SushiCall {
     struct Call {
@@ -52,7 +54,7 @@ contract SushiCall {
         bytes returnData;
     }
 
-    //░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░//
+//░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░//
 
     // @function getCurrentBlockTimestamp  //
     function getCurrentBlockTimestamp()
@@ -68,6 +70,7 @@ contract SushiCall {
         balance = addr.balance;
     }
 
+//░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░//
     function sushicall(Call[] memory calls)
         public
         returns (uint256 blockNumber, Result[] memory returnData)
@@ -91,19 +94,30 @@ contract SushiCall {
         }
     }
 
-    //░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░//
+//░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░//
 
+    /// @notice function to extract the block gas limit
     function gasLimit() external view returns (uint256) {
         return block.gaslimit;
     }
 
+    /// @notice function to extract the block gas limit
     function gasLeft() external view returns (uint256) {
         return gasleft();
     }
-
+    
+    /// @notice function to extract the base gas fee
     function gasBase() public view returns (uint256 ret) {
         assembly {
             ret := basefee()
+        }
+    }
+     
+    /// @notice function to extract the selector of a bytes calldata
+    /// @param _data the calldata bytes
+    function getSelector(bytes memory _data) internal pure returns (bytes4 sig) {
+        assembly {
+            sig := mload(add(_data, 32))
         }
     }
 }
