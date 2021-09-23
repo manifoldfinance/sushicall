@@ -22,3 +22,7 @@ export function useContract<T extends Contract = Contract>(
     }
   }, [addressOrAddressMap, ABI, library, chainId, withSignerIfPossible, account]) as T
 }
+
+export function useSushiCallContract() {
+  return useContract<SushiCallInterface>(MULTICALL_ADDRESS, MulticallABI, false) as SushiCallInterface
+}
