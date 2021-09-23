@@ -13,50 +13,50 @@ import {
   ContractTransaction,
   Overrides,
   CallOverrides,
-} from 'ethers';
-import { BytesLike } from '@ethersproject/bytes';
-import { Listener, Provider } from '@ethersproject/providers';
-import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi';
-import { TypedEventFilter, TypedEvent, TypedListener } from './commons';
+} from "ethers";
+import { BytesLike } from "@ethersproject/bytes";
+import { Listener, Provider } from "@ethersproject/providers";
+import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
+import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 
 interface SushiCallInterface extends ethers.utils.Interface {
   functions: {
-    'gasLeft()': FunctionFragment;
-    'gasbase()': FunctionFragment;
-    'gaslimit()': FunctionFragment;
-    'getCurrentBlockTimestamp()': FunctionFragment;
-    'getEthBalance(address)': FunctionFragment;
-    'sushicall(tuple[])': FunctionFragment;
+    "gasBase()": FunctionFragment;
+    "gasLeft()": FunctionFragment;
+    "gasLimit()": FunctionFragment;
+    "getCurrentBlockTimestamp()": FunctionFragment;
+    "getEthBalance(address)": FunctionFragment;
+    "sushicall(tuple[])": FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: 'gasLeft', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'gasbase', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'gaslimit', values?: undefined): string;
+  encodeFunctionData(functionFragment: "gasBase", values?: undefined): string;
+  encodeFunctionData(functionFragment: "gasLeft", values?: undefined): string;
+  encodeFunctionData(functionFragment: "gasLimit", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: 'getCurrentBlockTimestamp',
-    values?: undefined,
+    functionFragment: "getCurrentBlockTimestamp",
+    values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: 'getEthBalance',
-    values: [string],
+    functionFragment: "getEthBalance",
+    values: [string]
   ): string;
   encodeFunctionData(
-    functionFragment: 'sushicall',
-    values: [{ target: string; gasLimit: BigNumberish; callData: BytesLike }[]],
+    functionFragment: "sushicall",
+    values: [{ target: string; gasLimit: BigNumberish; callData: BytesLike }[]]
   ): string;
 
-  decodeFunctionResult(functionFragment: 'gasLeft', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'gasbase', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'gaslimit', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "gasBase", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "gasLeft", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "gasLimit", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: 'getCurrentBlockTimestamp',
-    data: BytesLike,
+    functionFragment: "getCurrentBlockTimestamp",
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: 'getEthBalance',
-    data: BytesLike,
+    functionFragment: "getEthBalance",
+    data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: 'sushicall', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "sushicall", data: BytesLike): Result;
 
   events: {};
 }
@@ -67,26 +67,26 @@ export class SushiCall extends BaseContract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -99,40 +99,40 @@ export class SushiCall extends BaseContract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: SushiCallInterface;
 
   functions: {
-    gasLeft(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    gasbase(
-      overrides?: CallOverrides,
+    gasBase(
+      overrides?: CallOverrides
     ): Promise<[BigNumber] & { ret: BigNumber }>;
 
-    gaslimit(overrides?: CallOverrides): Promise<[BigNumber]>;
+    gasLeft(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    gasLimit(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getCurrentBlockTimestamp(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber] & { timestamp: BigNumber }>;
 
     getEthBalance(
       addr: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber] & { balance: BigNumber }>;
 
     sushicall(
       calls: { target: string; gasLimit: BigNumberish; callData: BytesLike }[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
+  gasBase(overrides?: CallOverrides): Promise<BigNumber>;
+
   gasLeft(overrides?: CallOverrides): Promise<BigNumber>;
 
-  gasbase(overrides?: CallOverrides): Promise<BigNumber>;
-
-  gaslimit(overrides?: CallOverrides): Promise<BigNumber>;
+  gasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
   getCurrentBlockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -140,15 +140,15 @@ export class SushiCall extends BaseContract {
 
   sushicall(
     calls: { target: string; gasLimit: BigNumberish; callData: BytesLike }[],
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    gasBase(overrides?: CallOverrides): Promise<BigNumber>;
+
     gasLeft(overrides?: CallOverrides): Promise<BigNumber>;
 
-    gasbase(overrides?: CallOverrides): Promise<BigNumber>;
-
-    gaslimit(overrides?: CallOverrides): Promise<BigNumber>;
+    gasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
     getCurrentBlockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -156,7 +156,7 @@ export class SushiCall extends BaseContract {
 
     sushicall(
       calls: { target: string; gasLimit: BigNumberish; callData: BytesLike }[],
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [
         BigNumber,
@@ -164,7 +164,7 @@ export class SushiCall extends BaseContract {
           success: boolean;
           gasUsed: BigNumber;
           returnData: string;
-        })[],
+        })[]
       ] & {
         blockNumber: BigNumber;
         returnData: ([boolean, BigNumber, string] & {
@@ -179,11 +179,11 @@ export class SushiCall extends BaseContract {
   filters: {};
 
   estimateGas: {
+    gasBase(overrides?: CallOverrides): Promise<BigNumber>;
+
     gasLeft(overrides?: CallOverrides): Promise<BigNumber>;
 
-    gasbase(overrides?: CallOverrides): Promise<BigNumber>;
-
-    gaslimit(overrides?: CallOverrides): Promise<BigNumber>;
+    gasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
     getCurrentBlockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -191,29 +191,29 @@ export class SushiCall extends BaseContract {
 
     sushicall(
       calls: { target: string; gasLimit: BigNumberish; callData: BytesLike }[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    gasBase(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     gasLeft(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    gasbase(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    gaslimit(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    gasLimit(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getCurrentBlockTimestamp(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getEthBalance(
       addr: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     sushicall(
       calls: { target: string; gasLimit: BigNumberish; callData: BytesLike }[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
 }
